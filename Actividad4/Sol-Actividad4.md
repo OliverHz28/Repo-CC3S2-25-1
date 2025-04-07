@@ -122,3 +122,56 @@
      ```
 
      ![](img/act4-ejc5-6.png)
+
+#### Ejercicio 6: Cherry-Picking y Git Stash
+
+**Objetivo:** Aprender a aplicar commits específicos a otra rama utilizando `git cherry-pick` y a guardar temporalmente cambios no confirmados utilizando `git stash`.
+
+**Instrucciones:**
+
+1. **Hacer cambios en main.py y confirmarlos:**
+   - Realiza y confirma varios cambios en `main.py` en la rama `main`:
+
+     ```bash
+     $ echo "print('Cherry pick this!')" >> main.py
+     $ git add main.py
+     $ git commit -m "Add cherry-pick example"
+     ```
+
+    ![](img/act4-ejc6-1.png)
+
+
+2. **Crear una nueva rama y aplicar el commit específico:**
+   - Crea una nueva rama `feature/cherry-pick` y aplícale el commit específico:
+
+     ```bash
+     $ git branch feature/cherry-pick
+     $ git checkout feature/cherry-pick
+     $ git cherry-pick <commit-hash>
+     ```
+     ![](img/act4-ejc6-2.png)
+
+
+3. **Guardar temporalmente cambios no confirmados:**
+   - Realiza algunos cambios en `main.py` pero no los confirmes:
+
+     ```bash
+     $ echo "This change is stashed" >> main.py
+     $ git status
+     ```
+   - Guarda temporalmente estos cambios utilizando `git stash`:
+
+     ```bash
+     $ git stash
+     ```
+
+4. **Aplicar los cambios guardados:**
+   - Realiza otros cambios y confírmalos si es necesario.
+   - Luego, recupera los cambios guardados anteriormente:
+
+     ```bash
+     $ git stash pop
+     ```
+
+5. **Revisar el historial y confirmar la correcta aplicación de los cambios:**
+   - Usa `git log` para revisar el historial de commits y verificar que todos los cambios se han aplicado correctamente.
