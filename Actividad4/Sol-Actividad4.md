@@ -159,11 +159,16 @@
      $ echo "This change is stashed" >> main.py
      $ git status
      ```
+    ![](img/act4-ejc6-3-1.png)
+
    - Guarda temporalmente estos cambios utilizando `git stash`:
 
      ```bash
      $ git stash
      ```
+
+    ![](img/act4-ejc6-3-2.png)    
+     
 
 4. **Aplicar los cambios guardados:**
    - Realiza otros cambios y confírmalos si es necesario.
@@ -173,5 +178,9 @@
      $ git stash pop
      ```
 
+     ![](img/act4-ejc6-4.png)
+
 5. **Revisar el historial y confirmar la correcta aplicación de los cambios:**
    - Usa `git log` para revisar el historial de commits y verificar que todos los cambios se han aplicado correctamente.
+
+        ![](img/act4-ejc6-5.png)
