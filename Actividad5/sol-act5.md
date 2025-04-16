@@ -153,3 +153,120 @@ Esto combinará todos los cambios de la rama add-multiple-features en un solo nu
 **Ejecucion de git merge --squash exitosa**
     ![](img/act5-ejm3-2.png)
 
+
+#### Ejercicios
+
+1. **Clona un repositorio Git con múltiples ramas.**  
+   Identifica dos ramas que puedas fusionar utilizando `git merge --ff`.  
+   Haz el proceso de fusión utilizando `git merge --ff`.  
+   Verifica el historial con `git log --graph --oneline`.  
+
+   ![](img/act5-ejc-1-1.png)
+
+   ![](img/act5-ejc-1-2.png)
+
+   ![](img/act5-ejc-1-3.png)
+
+   **Pregunta:** ¿En qué situaciones recomendarías evitar el uso de `git merge --ff`? Reflexiona sobre las desventajas de este método.
+
+   Sol.
+
+2. **Simula un flujo de trabajo de equipo.**  
+   Trabaja en dos ramas independientes, creando diferentes cambios en cada una.  
+   Fusiona ambas ramas con `git merge --no-ff` para ver cómo se crean los commits de fusión.  
+   Observa el historial utilizando `git log --graph --oneline`.  
+   
+    ![](img/act5-ejc-2-1.png)
+
+    ![](img/act5-ejc-2-2.png)
+
+    ![](img/act5-ejc-2-3.png)
+
+    ![](img/act5-ejc-2-4.png)
+
+
+   **Pregunta:** ¿Cuáles son las principales ventajas de utilizar `git merge --no-ff` en un proyecto en equipo? ¿Qué problemas podrían surgir al depender excesivamente de commits de fusión?
+
+    Sol. ---
+
+3. **Crea múltiples commits en una rama.**  
+   Haz varios cambios y commits en una rama feature.  
+   Fusiona la rama con `git merge --squash` para aplanar todos los commits en uno solo.  
+   Verifica el historial de commits antes y después de la fusión para ver la diferencia.  
+
+    ![](img/act5-ejc-3-1.png)
+
+    ![](img/act5-ejc-3-2.png)
+
+    ![](img/act5-ejc-3-3.png)
+
+
+   **Pregunta:** ¿Cuándo es recomendable utilizar una fusión squash? ¿Qué ventajas ofrece para proyectos grandes en comparación con fusiones estándar?
+
+---
+
+#### Resolver conflictos en una fusión non-fast-forward
+
+En algunos casos, las fusiones no son tan sencillas y pueden surgir conflictos que necesitas resolver manualmente. Este ejercicio te guiará a través del proceso de manejo de conflictos.
+
+1. Inicializa un nuevo repositorio:
+   ```bash
+   mkdir try-merge-conflict
+   cd try-merge-conflict
+   git init
+   ```
+
+2. Crea un archivo index.html y realiza un commit en la rama main:
+   ```bash
+   echo "<html><body><h1>Proyecto inicial CC3S2</h1></body></html>" > index.html
+   git add index.html
+   git commit -m "commit inicial del  index.html en main"
+   ```
+
+3. Crea y cambia a una nueva rama feature-update:
+   ```bash
+   git checkout -b feature-update
+   ```
+
+4. Edita el archivo y realiza un commit en la rama feature-update:
+   ```bash
+   echo "<p>.....</p>" >> index.html
+   git add index.html
+   git commit -m "Actualiza ..."
+   ```
+
+5. Regresa a la rama main y realiza una edición en el mismo archivo:
+   ```bash
+   git checkout main
+   echo "<footer>Contacta aquí example@example.com</footer>" >> index.html
+   git add index.html
+   git commit -m "....index.html"
+   ```
+
+6. Fusiona la rama feature-update con --no-ff y observa el conflicto:
+   ```bash
+   git merge --no-ff feature-update
+   ```
+
+7. Git detectará un conflicto en index.html. Abre el archivo y resuelve el conflicto. Elimina las líneas de conflicto generadas por Git (`<<<<<<<`, `=======`, `>>>>>>>`) y crea la versión final del archivo con ambos cambios:
+
+   ```html
+   <html>
+     <body>
+       <h1>....</h1>
+       <p>....</p>
+       <footer>...example@example.com</footer>
+     </body>
+   </html>
+   ```
+
+8. Agrega el archivo corregido y completa la fusión:
+   ```bash
+   git add index.html
+   git commit
+   ```
+
+9. Verifica el historial para confirmar la fusión y el commit de resolución de conflicto:
+   ```bash
+   git log --graph --oneline
+   ```
