@@ -158,7 +158,7 @@
 
     **Vistazo al log de la rama 'add-base-documents'**
 
-    ![](img/act6-2-2-4.png)
+    *Codigo*
      ```bash
     # Echa un vistazo al log de la rama 'add-base-documents'
     $ git log add-base-documents --graph --oneline
@@ -166,18 +166,90 @@
 
     **Pregunta:** Muestra un diagrama de como se ven las ramas en este paso.
 
+    *Workspace limpio*
+    ![](img/act6-2-2-4.png)
 
 3. **Tarea: Haz cherry-pick de un commit de add-base-documents a main:**
-   ```bash
-   $ git checkout main
-   $ git cherry-pick a80e8ad  # Reemplaza con el hash real del commit de tu log
-   ```
+
+    *Usamos el log para ver el hash reaal*
+    ![](img/act6-2-3.png)
+
+    *Codigo*
+    ```bash
+    $ git checkout main
+    $ git cherry-pick a80e8ad  # Reemplaza con el hash real del commit de tu log
+    ```
 
 4. **Revisión:**  
    Revisa el historial nuevamente:
+
+    *Vemos que en el historial de la rama main se agregl el nuevo commit con los cambios del cherry-picked*
+    ![](img/act6-2-4-1.png)
+
+    *Codigo*
    ```bash
    $ git log --graph --oneline
    ```
+
+    **Una mejor visualizacion de todas las ramas**
+    ![](img/act6-2-4-2.png)
+
    Después de que hayas realizado con éxito el cherry-pick del commit, se agregará un nuevo commit a tu rama actual (main en este ejemplo) y contendrá los cambios del commit cherry-picked.  
 
    Ten en cuenta que el nuevo commit tiene los mismos cambios pero un valor de hash de commit diferente. !Comprueba esto!.
+
+### **Preguntas de discusión:**
+
+1. ¿Por qué se considera que rebase es más útil para mantener un historial de proyecto lineal en comparación con merge?  
+
+   > Porque une las historias en una secuencia lineal en lugar de crear un commit como en el merge. Haciendo parecer que el trabajo se realizo de manera secuencial.
+
+2. ¿Qué problemas potenciales podrían surgir si haces rebase en una rama compartida con otros miembros del equipo?  
+
+   Debido a que rebase **reescribe** la historia de esa rama, en donde los commits originales son reemplazados por nuevos commits lo que resultaria perjudicial si otro miembro del equipo ha basado su trabajo en los commits antiguos. Puede llevar a problemas como : 
+
+    - Conflictos confusos y difíciles de resolver, al realizar los pull, git detectara historias divergentes
+    - Pérdida de trabajo, si los miembros del equipo intentan fusionar sus ramas locales con la rama rebasada, podrían perder commits o introducir duplicados.
+
+3. ¿En qué se diferencia cherry-pick de merge, y en qué situaciones preferirías uno sobre el otro?  
+
+    En que no se trae consigo todo el historial de la rama de origen, sino solo los cambios introducidos por los commits específicos que nosotros elegimos.
+
+    **Merge** es preferible si estamos seguro que **todo** los cambios en la rama origen estan listos para integrarse. Mientras que **cherry-pick** es util en situacciones donde solo se necesite algunos cambios en particular de una otra rama.
+
+4. ¿Por qué es importante evitar hacer rebase en ramas públicas?
+
+    Porque causa problemas graves para cualquiera que haya clonado o hecho pull de esa rama, ya que sus repositorios locales tendrán un historial diferente al del repositorio remoto rebasado
+
+## **Ejercicios teóricos**
+
+1. **Diferencias entre git merge y git rebase**  
+   **Pregunta**: Explica la diferencia entre git merge y git rebase y describe en qué escenarios sería más adecuado utilizar cada uno en un equipo de desarrollo ágil que sigue las prácticas de Scrum.
+
+    | Característica          | Git Merge                                  | Git Rebase                                     |
+    | ----------------------- | ------------------------------------------ | ---------------------------------------------- |
+    | **Funcionamiento** | Combina historiales creando commit de fusión | Aplica commits sobre otra rama (reescribe historia) |
+    | **Historial** | Conserva bifurcaciones y uniones           | Resulta en un historial lineal                |
+    | **Uso en Scrum** | Integración final en ramas compartidas      | Limpieza de ramas locales antes de compartir   |
+    | **Ramas Públicas** | Seguro                                     | **No usar** |
+    | **Escenario Adecuado** | Integrar ramas completadas, preservar historia | Limpiar historial local antes de compartir      |
+
+
+2. **Relación entre git rebase y DevOps**  
+   **Pregunta**: ¿Cómo crees que el uso de git rebase ayuda a mejorar las prácticas de DevOps, especialmente en la implementación continua (CI/CD)? Discute los beneficios de mantener un historial lineal en el contexto de una entrega continua de código y la automatización de pipelines.
+
+    | Beneficio para DevOps/CI/CD             | Porque ...                                                                                                                                                                                                                                                           |
+    | :------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | **Automatización Simplificada** | Los scripts de CI/CD para construir, probar y desplegar código son más fáciles de escribir y mantener con un historial secuencial.                                                                                                                                   |
+    | **Seguimiento y Auditoría Directos** | Identificar qué commit se desplegó y rastrear cambios para auditorías o rollbacks es más sencillo sin la complejidad de las ramas de fusión.                                                                                                                            |
+    | **Menor Complejidad en Conflictos** | Mantener las ramas de funcionalidad actualizadas con la principal mediante rebase reduce la probabilidad de conflictos grandes y difíciles durante la integración final, aunque el rebase inicial pueda tener conflictos.                                                 |
+    | **Despliegues Limpios y Predecibles** | Cada despliegue desde una rama principal con un historial lineal representa una secuencia clara de cambios, lo que facilita la comprensión de la versión en producción y simplifica los rollbacks.                                                                     |
+
+3. **Impacto del git cherry-pick en un equipo Scrum**  
+   **Pregunta**: Un equipo Scrum ha finalizado un sprint, pero durante la integración final a la rama principal (main) descubren que solo algunos commits específicos de la rama de una funcionalidad deben aplicarse a producción. ¿Cómo podría ayudar git cherry-pick en este caso? Explica los beneficios y posibles complicaciones.
+
+| Aspecto             | Git Cherry-pick                                                                 |
+|----------------------|---------------------------------------------------------------------------------                |
+| **Beneficios** | Integración selectiva, flexibilidad en la entrega, mitigación de riesgos.        |
+| **Complicaciones** | Pérdida de contexto, duplicación de commits, problemas de dependencia, dificultad en futuras fusiones, historial confuso. |
+| **Precauciones** | Usar con cuidado, priorizar comunicación y documentación, considerar otras alternativas. |
