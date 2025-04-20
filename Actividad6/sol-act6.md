@@ -293,18 +293,18 @@
     *Grafico de commits*
     ![](img/act6-ejc-1-1.png)
 
-    *Cambio a la rama main para realizar el merge*
+    *Cambio a la rama origen para realizar el merge*
     
     ```bash
     $ git checkout feature
     $ git rebase main
-    $ git checkout main
     ```
     ![](img/act6-ejc-1-2.png)
 
     *Merge realizado*
 
     ```bash
+    $ git checkout main
     $ git merge feature --ff-only
     ```
     ![](img/act6-ejc-1-3.png)
@@ -318,3 +318,61 @@
    - ¿En qué situación aplicarías una fusión fast-forward en un proyecto ágil?
 
         > Aplicaria una fusion fast-forward cuando la rama feature no ha divergido de la rama principal
+
+2. **Cherry-pick para integración selectiva en un pipeline CI/CD**
+
+   **Contexto:**  
+   Durante el desarrollo de una funcionalidad, te das cuenta de que solo ciertos cambios deben ser integrados en la rama de producción, ya que el resto aún está en desarrollo. Para evitar fusionar toda la rama, decides hacer cherry-pick de los commits que ya están listos para producción.
+
+   **Instrucciones:**
+
+   - Crea un repositorio con una rama main y una rama feature.
+   - Haz varios commits en la rama feature, pero solo selecciona uno o dos commits específicos que consideres listos para producción.
+   - Realiza un cherry-pick de esos commits desde feature a main.
+   - Verifica que los commits cherry-picked aparezcan en main.
+
+   **Comandos:**
+   ```bash
+   $ mkdir ci-cd-workflow
+   $ cd ci-cd-workflow
+   $ git init
+   $ echo "Commit inicial en main" > main.md
+   $ git add main.md
+   $ git commit -m "Commit inicial en main"
+
+   $ git checkout -b feature
+   $ echo "Primera característica" > feature1.md
+   $ git add feature1.md
+   $ git commit -m "Agregar primera característica"
+
+   $ echo "Segunda característica" > feature2.md
+   $ git add feature2.md
+   $ git commit -m "Agregar segunda característica"
+   ```
+
+    *Grafico de commits*
+    ![](img/act6-ejc-2-1.png)
+
+
+    *Cambio a la rama destino para realizar el cherry-pick*
+    ```bash
+    $ git checkout main
+    $ git cherry-pick <hash_del_commit1>
+    $ git cherry-pick <hash_del_commit2>
+    ```
+
+    *Observamos una divergencia devido al cherry-pick*
+    ![](img/act6-ejc-2-2.png)
+
+
+    **Preguntas:**
+
+   - ¿Cómo utilizarías cherry-pick en un pipeline de CI/CD para mover solo ciertos cambios listos a producción?  
+
+        > Se usaria en la rama de producción para integrar solo los commits específicos listos para hacer el build, test y deploy.
+
+   - ¿Qué ventajas ofrece cherry-pick en un flujo de trabajo de DevOps?
+
+        > Permite la entrega selectiva de cambios sin desplegar código incompleto,asi como tambien ofrecer flexibilidad para avanzar ciertos cambios antes que toda una rama de funcionalidad.
+
+---
