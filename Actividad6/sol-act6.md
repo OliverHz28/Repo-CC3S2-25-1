@@ -248,8 +248,73 @@
 3. **Impacto del git cherry-pick en un equipo Scrum**  
    **Pregunta**: Un equipo Scrum ha finalizado un sprint, pero durante la integración final a la rama principal (main) descubren que solo algunos commits específicos de la rama de una funcionalidad deben aplicarse a producción. ¿Cómo podría ayudar git cherry-pick en este caso? Explica los beneficios y posibles complicaciones.
 
-| Aspecto             | Git Cherry-pick                                                                 |
-|----------------------|---------------------------------------------------------------------------------                |
-| **Beneficios** | Integración selectiva, flexibilidad en la entrega, mitigación de riesgos.        |
-| **Complicaciones** | Pérdida de contexto, duplicación de commits, problemas de dependencia, dificultad en futuras fusiones, historial confuso. |
-| **Precauciones** | Usar con cuidado, priorizar comunicación y documentación, considerar otras alternativas. |
+    | Aspecto             | Git Cherry-pick                                                                 |
+    |----------------------|---------------------------------------------------------------------------------                |
+    | **Beneficios** | Integración selectiva, flexibilidad en la entrega, mitigación de riesgos.        |
+    | **Complicaciones** | Pérdida de contexto, duplicación de commits, problemas de dependencia, dificultad en futuras fusiones, historial confuso. |
+    | **Precauciones** | Usar con cuidado, priorizar comunicación y documentación, considerar otras alternativas. |
+
+## **Ejercicios prácticos**
+
+1. **Simulación de un flujo de trabajo Scrum con git rebase y git merge**
+
+   **Contexto:**  
+   Tienes una rama `main` y una rama `feature` en la que trabajas. Durante el desarrollo del sprint, se han realizado commits tanto en `main` como en `feature`.  
+
+   Tu objetivo es integrar los cambios de la rama `feature` en `main` manteniendo un historial limpio.
+
+   **Instrucciones:**
+
+   - Crea un repositorio y haz algunos commits en la rama main.
+   - Crea una rama feature, agrega nuevos commits, y luego realiza algunos commits adicionales en main.
+   - Realiza un rebase de feature sobre main.
+   - Finalmente, realiza una fusión fast-forward de feature con main.
+
+
+   **Comandos:**
+   ```bash
+   $ mkdir scrum-workflow
+   $ cd scrum-workflow
+   $ git init
+   $ echo "Commit inicial en main" > mainfile.md
+   $ git add mainfile.md
+   $ git commit -m "Commit inicial en main"
+
+   $ git checkout -b feature
+   $ echo "Nueva característica en feature" > featurefile.md
+   $ git add featurefile.md
+   $ git commit -m "Commit en feature"
+
+   $ git checkout main
+   $ echo "Actualización en main" >> mainfile.md
+   $ git add mainfile.md
+   $ git commit -m "Actualización en main"
+    ```
+    *Grafico de commits*
+    ![](img/act6-ejc-1-1.png)
+
+    *Cambio a la rama main para realizar el merge*
+    
+    ```bash
+    $ git checkout feature
+    $ git rebase main
+    $ git checkout main
+    ```
+    ![](img/act6-ejc-1-2.png)
+
+    *Merge realizado*
+
+    ```bash
+    $ git merge feature --ff-only
+    ```
+    ![](img/act6-ejc-1-3.png)
+
+   **Preguntas:**
+
+   - ¿Qué sucede con el historial de commits después del rebase?  
+
+        > Obtenemos un historial secuencial en donde observamos que los commits originales de la rama origen son reemplazados por nuevos commits con el mismo contenido pero diferentes SHA-1 hashes
+
+   - ¿En qué situación aplicarías una fusión fast-forward en un proyecto ágil?
+
+        > Aplicaria una fusion fast-forward cuando la rama feature no ha divergido de la rama principal
