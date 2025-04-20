@@ -374,5 +374,252 @@
    - ¿Qué ventajas ofrece cherry-pick en un flujo de trabajo de DevOps?
 
         > Permite la entrega selectiva de cambios sin desplegar código incompleto,asi como tambien ofrecer flexibilidad para avanzar ciertos cambios antes que toda una rama de funcionalidad.
+---
 
+### **Git, Scrum y Sprints**
+
+#### **Fase 1: Planificación del sprint (sprint planning)**
+
+**Ejercicio 1: Crear ramas de funcionalidades (feature branches)**
+
+En esta fase del sprint, los equipos Scrum deciden qué historias de usuario van a trabajar. Cada historia de usuario puede representarse como una rama de funcionalidad.
+
+**Objetivo:** Crear ramas para cada historia de usuario y asegurar que el trabajo se mantenga aislado.
+
+**Instrucciones:**
+
+1. Crea un repositorio en Git.
+2. Crea una rama `main` donde estará el código base.
+3. Crea una rama por cada historia de usuario asignada al sprint, partiendo de la rama `main`.
+
+*Inicio - Todos apuntan al mismo commit*
+![](img/act6-f1-1.png)
+
+**Comandos:**
+```bash
+$ mkdir scrum-project
+$ cd scrum-project
+$ git init
+$ echo "# Proyecto Scrum" > README.md
+$ git add README.md
+$ git commit -m "Commit inicial en main"
+
+# Crear ramas de historias de usuario
+$ git checkout -b feature-user-story-1
+$ git checkout -b feature-user-story-2
+```
+
+**Pregunta:** ¿Por qué es importante trabajar en ramas de funcionalidades separadas durante un sprint?
+
+> Nos permite un aislar los cambios, menos conflictos, la rama principal es mas estable, trabajo paralelo de cada desarrollador y es de fácil reversión.
+
+
+#### **Fase 2: Desarrollo del sprint (sprint execution)**
+
+**Ejercicio 2: Integración continua con git rebase**
+
+A medida que los desarrolladores trabajan en sus respectivas historias de usuario, pueden ocurrir cambios en main. Para mantener un historial lineal y evitar conflictos más adelante, se usa `git rebase` para integrar los últimos cambios de main en las ramas de funcionalidad antes de finalizar el sprint.
+
+**Objetivo:** Mantener el código de la rama de funcionalidad actualizado con los últimos cambios de main durante el sprint.
+
+**Instrucciones:**
+
+1. Haz algunos commits en main.
+2. Realiza un rebase de la rama `feature-user-story-1` para actualizar su base con los últimos cambios de main.
+
+*Inicio - Todos apuntan al mismo commit*
+![](img/act6-f2-1.png)
+
+Se observa que las ramas feature apuntan al primer commit, mientras que el main esta adelantado.
+
+**Comandos:**
+```bash
+# Simula cambios en la rama main
+$ git checkout main
+$ echo "Actualización en main" > updates.md
+$ git add updates.md
+$ git commit -m "Actualizar main con nuevas funcionalidades"
+```
+*Realizamos el rebase* 
+
+![](img/act6-f2-2.png)
+
+En este caso la rama feature-user-story-1 apunta al commit del main.*
+
+**Comandos**
+```bash
+# Rebase de la rama feature-user-story-1 sobre main
+$ git checkout feature-user-story-1
+$ git rebase main
+```
+
+**Pregunta:** ¿Qué ventajas proporciona el rebase durante el desarrollo de un sprint en términos de integración continua?
+
+> Nos proporciona un historial limpio y lineal en la rama de integración, facilitando la automatización de pipelines CI/CD,nos simplifica el seguimiento de cambios y reduce la complejidad en la resolución de conflictos durante la integración final.
+
+#### **Fase 3: Revisión del sprint (sprint review)**
+
+**Ejercicio 3: Integración selectiva con git cherry-pick**
+
+En esta fase, es posible que algunas funcionalidades estén listas para ser mostradas a los stakeholders, pero otras aún no están completamente implementadas. Usar `git cherry-pick` puede permitirte seleccionar commits específicos para mostrar las funcionalidades listas, sin hacer merge de ramas incompletas.
+
+**Objetivo:** Mover commits seleccionados de una rama de funcionalidad (`feature-user-story-2`) a `main` sin integrar todos los cambios.
+
+**Instrucciones:**
+
+1. Realiza algunos commits en `feature-user-story-2`.
+2. Haz cherry-pick de los commits que estén listos para mostrarse a los stakeholders durante la revisión del sprint.
+
+*Commits agregados en la rama `feature-user-story-2`*
+
+![](img/act6-f3-1.png)
+
+La rama `feature-user-story-2` se adelantan en la linea del tiempo.
+
+**Comandos:**
+```bash
+$ git checkout feature-user-story-2
+$ echo "Funcionalidad lista" > feature2.md
+$ git add feature2.md
+$ git commit -m "Funcionalidad lista para revisión"
+
+$ echo "Funcionalidad en progreso" > progress.md
+$ git add progress.md
+$ git commit -m "Funcionalidad aún en progreso"
+```
+
+*Cherry-pick del commit `69caad8` de la rama `feature-user-story-2` hacia el `main`*
+
+![](img/act6-f3-2.png)
+
+El commit fue traido al main con un nuevo HASH dando a entender que es un nuevo commit pero con los mismo cambios que el commit real `69caad8`
+
+**Comandos:**
+```bash
+# Ahora selecciona solo el commit que esté listo
+$ git checkout main
+$ git cherry-pick <hash_del_commit_de_feature-lista>
+```
+
+**Pregunta:** ¿Cómo ayuda `git cherry-pick` a mostrar avances de forma selectiva en un sprint review?
+
+> Nos permite traer commits específicos listos para mostrar los avances sin la necesidad de desplegar toda la rama de funcionalidad, es decir, se enfoca en lo que esta completado y funcional.
+
+#### **Fase 4: Retrospectiva del sprint (sprint retrospective)**
+
+**Ejercicio 4: Revisión de conflictos y resolución**
+
+Durante un sprint, pueden surgir conflictos al intentar integrar diferentes ramas de funcionalidades. Es importante aprender cómo resolver estos conflictos y discutirlos en la retrospectiva.
+
+**Objetivo:** Identificar y resolver conflictos de fusión con `git merge` al intentar integrar varias ramas de funcionalidades al final del sprint.
+
+**Instrucciones:**
+
+1. Realiza cambios en `feature-user-story-1` y `feature-user-story-2` que resulten en conflictos.
+2. Intenta hacer merge de ambas ramas con main y resuelve los conflictos.
+
+*Agregamos a cada rama un archivo `conflicted-file.md` con diferente contenido, de tal manera que crearemos un conflicto al realizar el merge en el `main`*
+
+![](img/act6-f4-1.png)
+
+**Comandos:**
+```bash
+$ git checkout feature-user-story-1
+$ echo "Cambio en la misma línea" > conflicted-file.md
+$ git add conflicted-file.md
+$ git commit -m "Cambio en feature 1"
+
+$ git checkout feature-user-story-2
+$ echo "Cambio diferente en la misma línea" > conflicted-file.md
+$ git add conflicted-file.md
+$ git commit -m "Cambio en feature 2"
+```
+
+*Merge exito de la rama `feature-user-story-1`*
+
+![](img/act6-f4-2.png)
+
+**Comandos:**
+```bash
+# Intentar hacer merge en main
+$ git checkout main
+$ git merge feature-user-story-1
+```
+
+*Aparece el conflicto*
+
+![](img/act6-f4-3.png)
+Realizamos el merge, dandonos un conflico por solucionar
+
+**Comandos:**
+```bash
+$ git merge feature-user-story-2
+```
+
+![](img/act6-f4-4.png)
+
+Con ayuda de VisualStudio Code resolveremos el conflicto
+
+![](img/act6-f4-5.png)
+
+Conflicto solucionado, realizamos el commit respectivo para terminar el merge.
+
+
+**Pregunta**: ¿Cómo manejas los conflictos de fusión al final de un sprint? ¿Cómo puede el equipo mejorar la comunicación para evitar conflictos grandes?
+
+> De manera manual editamos los archivos conflictivos, eligiendo qué cambios conservar y luego commitear la resolución.
+
+> Se puede evitar con una comunicación frecuente sobre los cambios en curso, realizando una integracion continua de manera que los conflictos sean pequeños a comparacion de los grandes.
+
+
+#### **Fase 5: Fase de desarrollo, automatización de integración continua (CI) con git rebase**
+
+**Ejercicio 5: Automatización de rebase con hooks de Git**
+
+En un entorno CI, es común automatizar ciertas operaciones de Git para asegurar que el código se mantenga limpio antes de que pase a la siguiente fase del pipeline. Usa los hooks de Git para automatizar el rebase cada vez que se haga un push a una rama de funcionalidad.
+
+**Objetivo:** Implementar un hook que haga automáticamente un rebase de `main` antes de hacer push en una rama de funcionalidad, asegurando que el historial se mantenga limpio.
+
+**Instrucciones:**
+
+1. Configura un hook `pre-push` que haga un rebase automático de la rama `main` sobre la rama de funcionalidad antes de que el push sea exitoso.
+2. Prueba el hook haciendo push de algunos cambios en la rama `feature-user-story-1`.
+
+*Creando el hook*
+
+![](img/act6-f5-1.png)
+
+**Comandos:**
+```bash
+# Dentro de tu proyecto, crea un hook pre-push
+$ nano .git/hooks/pre-push
+
+# Agrega el siguiente script para automatizar el rebase
+#!/bin/bash
+git fetch origin main
+git rebase origin/main
+
+# Haz el archivo ejecutable
+$ chmod +x .git/hooks/pre-push
+```
+
+Simulando el push
+
+![](img/act6-f5-2.png)
+
+**Comandos:**
+```bash
+# Simula cambios y haz push
+$ git checkout feature-user-story-1
+$ echo "Cambios importantes" > feature1.md
+$ git add feature1.md
+$ git commit -m "Cambios importantes en feature 1"
+$ git push origin feature-user-story-1
+```
+
+**Pregunta**: ¿Qué ventajas y desventajas observas al automatizar el rebase en un entorno de CI/CD?
+
+> **Ventajas:** Presenta el historial principal lineal y una menor probabilidad de conflictos grandes en la fusión final.
+
+> **Desventajas:** La reescritura del historial es compartida, puede presentar posible pérdidas de información de ramas, una mayor complejidad en la configuración y resolución de conflictos automatizada.
 ---
