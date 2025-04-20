@@ -96,3 +96,88 @@
 
     **Ambas estan apuntando al mismo commit "niveladas"**
     ![](img/act6-1-4-2.png)
+
+## Parte 2: **git cherry-pick para la integración selectiva de commit**
+
+1. **Introducción a Cherry-pick:**
+
+   `git cherry-pick` te permite seleccionar commits individuales de una rama y aplicarlos en otra. Esto es útil cuando necesitas integrar una característica o corrección sin hacer merge de toda la rama.
+
+   Imagina que tienes dos ramas, main y feature. Te das cuenta de que uno o dos commits de la rama feature deberían moverse a main, pero no estás listo para fusionar toda la rama. El comando `git cherry-pick` te permite hacer precisamente eso.
+
+   Puedes hacer cherry-pick de los cambios de un commit específico en la rama feature y aplicarlos en la rama main.
+   Esta acción creará un nuevo commit en la rama main.
+
+
+2. **Escenario de ejemplo:**
+
+    **Inicializar un nuevo repositorio**
+
+    ![](img/act6-2-2-1.png)
+
+    *Codigo*
+    ```bash
+    # Inicializar un nuevo repositorio
+    $ mkdir try-cherry-pick
+    $ cd try-cherry-pick
+    $ git init
+    ```
+
+    **Agregar y commitear README.md inicial a main**
+
+    ![](img/act6-2-2-2.png)
+
+    *Codigo*
+    ```bash
+    # Agregar y commitear README.md inicial a main
+    $ echo "# My Project" > README.md
+    $ git add README.md
+    $ git commit -m "Initial commit"
+    ```
+
+    **Crear y cambiar a una nueva rama, realizar cambios y commitearlos**
+
+    ![](img/act6-2-2-3.png)
+
+    *Codigo*
+    ```bash
+    # Crear y cambiar a una nueva rama 'add-base-documents'
+    $ git checkout -b add-base-documents
+
+    # Hacer cambios y commitearlos
+    # Agregar CONTRIBUTING.md
+    $ echo "# CONTRIBUTING" >> CONTRIBUTING.md
+    $ git add CONTRIBUTING.md
+    $ git commit -m "Add CONTRIBUTING.md"
+
+    # Agregar LICENSE.txt
+    $ echo "LICENSE" >> LICENSE.txt
+    $ git add LICENSE.txt
+    $ git commit -m "Add LICENSE.txt"
+    ```
+
+    **Vistazo al log de la rama 'add-base-documents'**
+
+    ![](img/act6-2-2-4.png)
+     ```bash
+    # Echa un vistazo al log de la rama 'add-base-documents'
+    $ git log add-base-documents --graph --oneline
+   ```
+
+    **Pregunta:** Muestra un diagrama de como se ven las ramas en este paso.
+
+
+3. **Tarea: Haz cherry-pick de un commit de add-base-documents a main:**
+   ```bash
+   $ git checkout main
+   $ git cherry-pick a80e8ad  # Reemplaza con el hash real del commit de tu log
+   ```
+
+4. **Revisión:**  
+   Revisa el historial nuevamente:
+   ```bash
+   $ git log --graph --oneline
+   ```
+   Después de que hayas realizado con éxito el cherry-pick del commit, se agregará un nuevo commit a tu rama actual (main en este ejemplo) y contendrá los cambios del commit cherry-picked.  
+
+   Ten en cuenta que el nuevo commit tiene los mismos cambios pero un valor de hash de commit diferente. !Comprueba esto!.
