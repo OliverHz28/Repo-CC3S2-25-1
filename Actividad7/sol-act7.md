@@ -341,3 +341,39 @@ Inicio de los ejercicios - en la rama `feature/entorno-virtual`
 ![](img/act7-ejc.png)
 
 ----
+
+#### Ejercicio 1: **Añadir soporte para minutos y segundos en tiempos de espera**
+
+**Objetivo**  
+- Ampliar la funcionalidad para reconocer tiempos de espera expresados en horas, minutos y segundos.
+
+**Instrucciones**  
+1. **Modifica** la función que maneja el tiempo de espera en `steps.py` (o donde parsees el tiempo) para que acepte:
+   - "1 hora y 30 minutos"
+   - "90 minutos"
+   - "3600 segundos"
+   - **Variaciones** que incluyan segundos (por ejemplo, `"1 hora, 30 minutos y 45 segundos"`).
+
+2. **Implementa** un escenario de prueba en Gherkin (`belly.feature`) que valide que el estómago gruñe o no según estas variaciones de tiempo.
+
+3. **Considera** también crear pruebas unitarias con Pytest para la lógica de parsing (función que convierte el texto de tiempo en horas decimales).
+4. **En un entorno DevOps**:
+   - Agrega la ejecución de `behave` y `pytest` en tu *pipeline* de CI/CD, de modo que al hacer push de los cambios se ejecuten automáticamente las pruebas.
+
+**Ejemplo Gherkin**:
+```gherkin
+Escenario: Comer pepinos y esperar en minutos y segundos
+  Dado que he comido 35 pepinos
+  Cuando espero "1 hora y 30 minutos y 45 segundos"
+  Entonces mi estómago debería gruñir
+```
+
+*Instalando el pytest*
+![](img/act7-ejc1-1.png)
+
+*Tests pasados*
+![](img/act7-ejc1-2.png)
+
+*Behave*
+![](img/act7-ejc1-3.png)
+
