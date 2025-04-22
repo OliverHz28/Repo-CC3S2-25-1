@@ -377,3 +377,40 @@ Escenario: Comer pepinos y esperar en minutos y segundos
 *Behave*
 ![](img/act7-ejc1-3.png)
 
+*Coverage*
+![](img/act7-ejc1-4.png)
+
+
+#### Ejercicio 2: **Manejo de cantidades fraccionarias de pepinos**
+
+**Objetivo**  
+- Permitir que el sistema acepte cantidades fraccionarias de pepinos (decimales).
+
+**Instrucciones**  
+1. **Modifica** el sistema (la clase `Belly` y los steps en Behave) para que acepte entradas como `"0.5"`, `"2.75"`.
+2. **Implementa** un nuevo escenario en Gherkin donde se ingiera una cantidad fraccionaria y verifica el comportamiento.
+3. **Valida** que el sistema lance una excepción o error si se ingresa una cantidad negativa de pepinos.
+4. **Pruebas unitarias**:  
+   - Cubre el caso de pepinos fraccionarios en `test_belly.py`.
+   - Cubre también el caso de pepinos negativos (se espera un error).
+
+**Ejemplo Gherkin**:
+```gherkin
+Escenario: Comer una cantidad fraccionaria de pepinos
+  Dado que he comido 0.5 pepinos
+  Cuando espero 2 horas
+  Entonces mi estómago no debería gruñir
+```
+
+  *`pytet`*
+  ![](img/act7-ejc2-1.png)
+
+  *`behave`*
+  ![](img/act7-ejc2-2.png)
+
+  *`cov`*
+  ![](img/act7-ejc2-3.png)
+
+**En un entorno DevOps**:
+- Asegúrate de que la falla (excepción por valor negativo) sea reportada como *falla de build* si ocurre.  
+- Configura notificaciones (por correo/Slack/Teams) si alguna de las pruebas falla.
