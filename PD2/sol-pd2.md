@@ -282,8 +282,23 @@ exit 0
 ```
 
 **Creacion de hook**
-![](img/pd2-ejc3-1.png
+![](img/pd2-ejc3.png)
 
 
 **Visualizacion**
-![](img/pd2-ejc3-2.png))
+
+![](img/pd2-ejc3-1.png)
+![](img/pd2-ejc3-2.png)
+
+
+4 . Implementa una opción en el script que realice un merge automatizado de una rama determinada en la rama actual, incluyendo la resolución automática de conflictos (siempre que sea posible).
+
+**Instrucciones:**
+
+1. **Investiga** las opciones de `git merge` y cómo utilizar el parámetro `--strategy-option` (por ejemplo, `-X theirs` o `-X ours`) para la resolución automática de conflictos.
+2. **Añade** una nueva opción en el menú principal (por ejemplo, "12) Merge automatizado de una rama").
+3. **Solicita** al usuario el nombre de la rama que se desea fusionar.
+4. **Ejecuta** el comando de merge con una estrategia de resolución automática, por ejemplo:
+   ```bash
+   git merge -X theirs <rama_a_fusionar>
+   
