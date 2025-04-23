@@ -246,6 +246,10 @@ Ingrese la ruta del archivo: src/app.js
 [Mostrará el diff solo de 'src/app.js' entre las dos revisiones]
 ```
 
+**gestionar_diff() modificado**
+
+![](img/pd2-ejc2-1.png)
+
 **Visualizacion**
 ![](img/pd2-ejc2.png)
 
