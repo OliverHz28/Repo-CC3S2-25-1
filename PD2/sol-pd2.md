@@ -325,3 +325,45 @@ exit 0
 **Visualizacion final de las ramas**
 
 ![](img/pd2-ejc4-5.png)
+
+5 . Implementa una opción en el script que genere un reporte con información relevante del repositorio (estado, ramas, últimos commits, stashes, etc.) y lo guarde en un archivo.
+
+**Instrucciones:**
+
+1. **Agrega** una nueva opción al menú principal (por ejemplo, "13 Generar reporte de estado del repositorio").
+2. **Crea** una función que ejecute varios comandos de Git (ej. `git status`, `git branch`, `git log -n 5`, `git stash list`) y redirija la salida a un archivo, por ejemplo `reporte_git.txt`.
+3. **Agrega** mensajes claros en el reporte que indiquen qué información corresponde a cada comando.
+4. **Verifica** que el archivo se cree correctamente y que contenga la información esperada.
+
+**Ejemplo de salida esperada:**
+
+Al ejecutar la función, se debe crear el archivo `reporte_git.txt` con contenido similar a:
+```
+=== Estado del repositorio ===
+[Salida de git status]
+
+=== Ramas existentes ===
+[Salida de git branch]
+
+=== Últimos 5 commits ===
+[Salida de git log -n 5]
+
+=== Lista de stashes ===
+[Salida de git stash list]
+```
+
+**Funcion generar_reporte**
+
+![](img/pd2-ejc5-1.png)
+
+
+**Visualizacion del menu**
+
+![](img/pd2-ejc5-2.png)
+
+**Archivo `reporte_git.txt`**
+![](img/pd2-ejc5-3.png)
+
+**Visualizacion final de las ramas**
+
+![](img/pd2-ejc5-4.png)
