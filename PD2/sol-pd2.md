@@ -228,3 +228,24 @@ Rama 'feature/login' renombrada a 'feature/authentication'
 **Salida**
 ![](img/pd2-ejc1-1.png)
 
+2 . Amplia la sección de "Gestión de git diff" para permitir ver las diferencias de un archivo específico entre dos commits o ramas.
+
+**Instrucciones:**
+
+1. **Investiga** cómo usar `git diff` con la opción `--` para especificar un archivo (por ejemplo, `git diff commit1 commit2 -- path/to/file`).
+2. **Agrega** al submenú de diff una nueva opción (por ejemplo, "e) Comparar diferencias de un archivo específico").
+3. **Solicita** al usuario ingresar dos identificadores (ramas o commits) y luego la ruta del archivo.
+4. **Ejecuta** el comando `git diff` para mostrar únicamente las diferencias para ese archivo y presenta el resultado en pantalla.
+
+**Ejemplo de salida esperada:**
+
+```
+Ingrese el primer identificador (rama o commit): master
+Ingrese el segundo identificador (rama o commit): feature/login
+Ingrese la ruta del archivo: src/app.js
+[Mostrará el diff solo de 'src/app.js' entre las dos revisiones]
+```
+
+**Visualizacion**
+![](img/pd2-ejc2.png)
+
