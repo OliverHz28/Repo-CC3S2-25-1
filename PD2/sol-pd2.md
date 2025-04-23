@@ -199,3 +199,32 @@
 - **¿Qué desafíos podrías enfrentar al administrar ramas y stashes en un proyecto con múltiples colaboradores?**
 
     > Los desafios mas comunes serian los conflictos de merge frecuentes, pérdida o confusión de stashes si es que no se gestionan adecuadamente-
+
+### Ejercicios 
+
+1 . Extiende el menú de gestión de ramas para incluir la funcionalidad de renombrar ramas.
+
+**Instrucciones:**
+
+1. **Investiga** el comando `git branch -m` que permite renombrar una rama.
+2. **Modifica** la función de "Gestión de ramas" para agregar una nueva opción (por ejemplo, "f) Renombrar una rama").
+3. **Implementa** la lógica para solicitar al usuario el nombre de la rama actual y el nuevo nombre.
+4. **Verifica** que, tras el cambio, la rama se renombre correctamente.  
+   **Pista:** Considera cómo se comporta el cambio si la rama en uso es la que se desea renombrar.
+
+**Ejemplo de salida esperada:**
+
+```
+Ingrese el nombre de la rama actual: feature/login
+Ingrese el nuevo nombre para la rama: feature/authentication
+Rama 'feature/login' renombrada a 'feature/authentication'
+```
+
+**Gestion de ramas modificada**
+
+![](img/pd2-ejc1-2.png)
+
+
+**Salida**
+![](img/pd2-ejc1-1.png)
+
