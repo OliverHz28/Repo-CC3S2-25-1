@@ -253,3 +253,37 @@ Ingrese la ruta del archivo: src/app.js
 **Visualizacion**
 ![](img/pd2-ejc2.png)
 
+
+3 . Crea una función que permita instalar automáticamente un hook que, por ejemplo, verifique si se han agregado comentarios de documentación en cada commit.
+
+**Instrucciones:**
+
+1. **Investiga** el hook pre-commit, que se ejecuta antes de que se realice un commit.
+2. **Escribe** un pequeño script en Bash que verifique si se han modificado archivos y, para cada archivo modificado, compruebe si existen comentarios de documentación. Puedes establecer una regla simple, por ejemplo, que cada función definida en un archivo debe tener un comentario anterior.
+3. **Integra** la función en el submenú de "Gestión de Hooks" o crea una nueva opción en el menú principal para instalar este hook.
+4. **Prueba** la funcionalidad creando o modificando un commit sin la documentación requerida y verifica que el hook evite completar el commit.
+
+**Ejemplo de contenido del hook:**
+
+```bash
+#!/bin/bash
+# Hook pre-commit para verificar documentación en funciones
+
+# Lista de archivos modificados
+files=$(git diff --cached --name-only --diff-filter=ACM | grep '\.c\|\.h\|\.js')
+for file in $files; do
+    # Ejemplo simplificado: verificar si existe al menos una línea con comentario ('//')
+    if ! grep -q "//" "$file"; then
+        echo "Error: El archivo '$file' no contiene comentarios de documentación."
+        exit 1
+    fi
+done
+exit 0
+```
+
+**Creacion de hook**
+![](img/pd2-ejc3-1.png
+
+
+**Visualizacion**
+![](img/pd2-ejc3-2.png))
