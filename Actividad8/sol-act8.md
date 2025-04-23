@@ -32,3 +32,29 @@ Implementa en la clase `Carrito` un método llamado `vaciar()` que elimine todos
 **`pytest`**
 
 ![](img/act8-ejc1-4.png)
+
+---
+### Ejercicio 2: Descuento por compra mínima
+
+**Objetivo:**  
+Amplía la lógica del carrito para aplicar un descuento solo si el total supera un monto determinado. Por ejemplo, si el total es mayor a \$500, se aplica un 15% de descuento.
+
+**Pistas:**
+- Agrega un nuevo método, por ejemplo, `aplicar_descuento_condicional(porcentaje, minimo)` en la clase `Carrito` que primero verifique si `calcular_total() >= minimo`.  
+- Si se cumple la condición, aplica el descuento; de lo contrario, retorna el total sin descuento.
+- Escribe pruebas para ambos escenarios (condición cumplida y no cumplida).
+
+ **Metodo `aplicar_descuento_condicional`**
+
+ ![](img/act8-ejc2-1.png)
+
+**Pruebas - `test`**
+
+![](img/act8-ejc2-2.png)
+
+
+**`pytest`**
+
+![](img/act8-ejc2-3.png)
+
+---
