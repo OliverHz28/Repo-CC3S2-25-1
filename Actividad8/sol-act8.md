@@ -58,3 +58,35 @@ Amplía la lógica del carrito para aplicar un descuento solo si el total supera
 ![](img/act8-ejc2-3.png)
 
 ---
+##### Ejercicio 3: Manejo de stock en producto
+
+**Objetivo:**  
+Modifica la clase `Producto` para que incluya un atributo `stock` (cantidad disponible). Luego, actualiza el método `agregar_producto` en `Carrito` para que verifique que no se agregue una cantidad mayor a la disponible en stock. Si se intenta agregar más, se debe lanzar una excepción.
+
+**Pistas:**
+- Modifica `Producto` en `src/carrito.py` añadiendo `self.stock = stock` en el constructor y actualiza la fábrica en `src/factories.py` para que genere un stock (por ejemplo, entre 1 y 100).
+- En `Carrito.agregar_producto`, antes de agregar o incrementar la cantidad, verifica que la suma de cantidades en el carrito no supere el `stock` del producto.
+- Escribe pruebas que verifiquen:
+  - Se puede agregar un producto dentro del límite de stock.
+  - Se lanza una excepción al intentar agregar más unidades de las disponibles.
+
+
+ **Metodo `agregar_producto`**
+
+ ![](img/act8-ejc3-2.png)
+
+**Pruebas - `test`**
+
+![](img/act8-ejc3-1.png)
+
+
+**`pytest`**
+
+![](img/act8-ejc3-3.png)
+
+
+**`cov`**
+
+![](img/act8-ejc3-4.png)
+
+---
