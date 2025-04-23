@@ -301,4 +301,27 @@ exit 0
 4. **Ejecuta** el comando de merge con una estrategia de resolución automática, por ejemplo:
    ```bash
    git merge -X theirs <rama_a_fusionar>
+
+
+**Funcion merge**
+
+![](img/pd2-ejc4-6.png)
    
+**Visualizacion - de las ramas**
+
+![](img/pd2-ejc4-1.png)
+
+**Realizamos un cherry-pick para traer la funcionalidad del merge a la rama main**
+
+![](img/pd2-ejc4-2.png)
+
+
+**Visualizacion del merge**
+
+![](img/pd2-ejc4-3.png)
+
+![](img/pd2-ejc4-4.png)
+
+**Visualizacion final de las ramas**
+
+![](img/pd2-ejc4-5.png)
