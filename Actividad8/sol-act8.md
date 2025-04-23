@@ -3,9 +3,11 @@
 ### Test de inicios 
 
 *`pytestes`*
+
 ![](img/act8-inicio1.png)
 
 *`cov`*
+
 ![](img/act8-inicio2.png)
 
 ### Ejercicio 1: Método para vaciar el carrito
