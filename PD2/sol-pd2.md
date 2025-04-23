@@ -172,4 +172,30 @@
      
      ![](img/pd2-proc-5.png)
 
-     
+### Preguntas
+
+- **¿Qué diferencias observas en el historial del repositorio después de restaurar un commit mediante reflog?**
+
+    > El historial principal no se altera, pero el reflog sí, pues registra la acción de restauración
+
+- **¿Cuáles son las ventajas y desventajas de utilizar submódulos en comparación con subtrees?**
+
+    >| Característica    | Submódulos                                  | Subtrees                                      |
+    >| :---------------- | :------------------------------------------ | :-------------------------------------------- |
+    >| **Ventajas** | - Proyectos separados, historiales propios | - Integración como subcarpeta, gestión sencilla |
+    >|                   | - Mayor claridad en la propiedad del código. | - Historial unificado             |
+    >| **Desventajas** | - Gestión más compleja  | - Mezcla de historiales (si no se gestiona bien). |
+    >|                   | - Navegación entre proyectos puede ser menos fluida | - Mayor tamaño del repositorio principal       |
+    >|                   |                                             | - Posibles conflictos al actualizar            |
+
+- **¿Cómo impacta la creación y gestión de hooks en el flujo de trabajo y la calidad del código?**
+
+    > Permite la automatizan tareas, aplicar políticas y mejorar la consistencia y calidad del código al prevenir o modificar acciones en puntos específicos del flujo de trabajo.
+
+- **¿De qué manera el uso de `git bisect` puede acelerar la localización de un error introducido recientemente?**
+
+    > Debido a que realiza una búsqueda binaria en el historial de commits, reduciendo drásticamente el número de commits que se necesita revisar manualmente para encontrar el commit que introdujo el error.
+
+- **¿Qué desafíos podrías enfrentar al administrar ramas y stashes en un proyecto con múltiples colaboradores?**
+
+    > Los desafios mas comunes serian los conflictos de merge frecuentes, pérdida o confusión de stashes si es que no se gestionan adecuadamente-
