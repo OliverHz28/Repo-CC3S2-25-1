@@ -58,7 +58,7 @@ Amplía la lógica del carrito para aplicar un descuento solo si el total supera
 ![](img/act8-ejc2-3.png)
 
 ---
-##### Ejercicio 3: Manejo de stock en producto
+### Ejercicio 3: Manejo de stock en producto
 
 **Objetivo:**  
 Modifica la clase `Producto` para que incluya un atributo `stock` (cantidad disponible). Luego, actualiza el método `agregar_producto` en `Carrito` para que verifique que no se agregue una cantidad mayor a la disponible en stock. Si se intenta agregar más, se debe lanzar una excepción.
@@ -88,5 +88,35 @@ Modifica la clase `Producto` para que incluya un atributo `stock` (cantidad disp
 **`cov`**
 
 ![](img/act8-ejc3-4.png)
+
+---
+
+### Ejercicio 4: Ordenar items del carrito
+
+**Objetivo:**  
+Agrega un método en `Carrito` que devuelva la lista de items ordenados por un criterio (por ejemplo, por precio unitario o por nombre del producto).
+
+**Pistas:**
+- Crea un método `obtener_items_ordenados(criterio: str)` donde `criterio` pueda ser `"precio"` o `"nombre"`.
+- Utiliza la función `sorted()` con una función lambda para ordenar según el criterio.
+- Escribe pruebas que verifiquen que, al agregar varios productos, la lista devuelta esté ordenada correctamente según el criterio solicitado.
+
+ **Metodo `obener_items_ordenados`**
+
+ ![](img/act8-ejc4-1.png)
+
+**Pruebas - `test`**
+
+![](img/act8-ejc4-2.png)
+
+
+**`pytest`**
+
+![](img/act8-ejc4-3.png)
+
+
+**`cov`**
+
+![](img/act8-ejc4-4.png)
 
 ---
