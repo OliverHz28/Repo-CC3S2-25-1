@@ -139,3 +139,16 @@ Ejecución de `pytest --cov=triangle --cov-report=term-missing --cov-report=html
 * La línea `Coverage HTML written to dir htmlcov` indica que `pytest-cov` también generó un informe de cobertura detallado en formato HTML y lo guardó en el directorio `htmlcov`.
 
 `pytest` ejecuta exitosamente todas las pruebas y `pytest-cov` generó dos tipos de informes de cobertura para el módulo `triangle.py`: uno detallado en la terminal y otro completo en formato HTML para una visualización más interactiva. Ambos indican una cobertura del 100%.
+
+**Paso 4: Añadiendo colores automáticamente**
+
+*Ejecutamos el siguiente comando.*
+
+```
+pytest --color=yes
+```
+
+Si por alguna razón los colores no se muestran.
+
+![](img/act10-paso4.png)
+
