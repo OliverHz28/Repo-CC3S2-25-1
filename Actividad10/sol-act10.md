@@ -24,7 +24,7 @@ Este comando nos descargará e instalará las últimas versiones de pytest y pyt
 pytest -v
 ```
 
-La opción -v activa el modo detallado, mostrándote qué pruebas se ejecutaron y sus resultados. Si las pruebas pasan, verás una salida con texto en verde. Si alguna prueba falla, el texto será rojo.
+La opción -v activa el modo detallado, mostrando qué pruebas se ejecutaron y sus resultados. Si las pruebas pasan, verás una salida con texto en verde. Si alguna prueba falla, el texto será rojo.
 
 ![](img/act10-paso2-1.png)
 
@@ -32,9 +32,9 @@ La opción -v activa el modo detallado, mostrándote qué pruebas se ejecutaron 
 * Mostró detalles del entorno (SO, Python, pytest, plugins).
 * Indica dónde guarda la caché (`.pytest_cache`) para acelerar futuras ejecuciones y la raíz del proyecto.
 * Listó plugins activos incluyendo `cov`que corresponde al `pytest-cov` que instalamos previamente.
-* Encontró 11 pruebas.
-* Ejecutó cada prueba mostrando su nombre y el resultado (`PASSED`).
-* Mostró una barra de avance hasta el 100%.
+* Encuentra 11 pruebas.
+* Ejecuta cada prueba mostrando su nombre y el resultado (`PASSED`).
+* Muestra una barra de avance hasta el 100%.
 * Reportó que las 11 pruebas pasaron en 0.88 segundos.
 
 > `pytest` ejecutó exitosamente las 11 pruebas unitarias, mostrando un resultado detallado de cada una.
@@ -75,7 +75,7 @@ Si también deseas generar un informe de cobertura en HTML para visualizarlo.
 ![](img/act10-paso2-3.png)
 
 * De manera similar al ejecutar `pytest --cov` 
-* La línea `Coverage HTML written to dir htmlcov` indica que `pytest-cov` generó un informe de cobertura detallado en formato HTML y lo guardó en un nuevo directorio llamado `htmlcov` dentro de tu proyecto.
+* La línea `Coverage HTML written to dir htmlcov` indica que `pytest-cov` generó un informe de cobertura detallado en formato HTML y lo guardó en un nuevo directorio llamado `htmlcov` dentro del proyecto.
 
 > `pytest` ejecuta las pruebas, mide la cobertura del código en el proyecto y genera un informe HTML completo.
 
@@ -86,7 +86,7 @@ Si también deseas generar un informe de cobertura en HTML para visualizarlo.
 pytest -v --cov=triangle`
 ```
 
-Si solo deseas medir la cobertura de un módulo específico.
+Si solo deseas medir la cobertura de un módulo  o directorio específico, en nuestro caso `triangle.py`.
 
 ![](img/act10-paso2-4.png)
 
@@ -151,4 +151,57 @@ pytest --color=yes
 Si por alguna razón los colores no se muestran.
 
 ![](img/act10-paso4.png)
+
+**Paso 5: Automatizando la configuración de pytest**
+En lugar de escribir todos los parámetros de configuración cada vez que ejecutes pytest, puedes guardarlos en un archivo pytest.ini o como se ha realizado aqui setup.cfg. 
+
+* **Elegir el archivo con sabiduría:**
+    * **`pytest.ini` para lo esencial de testing:** Si nuestro foco es la configuración *únicamente* de pytest (opciones de ejecución, plugins principales como `cov`), este es el ideal. Simple y directo.
+    * **`setup.cfg` para el ecosistema del proyecto:** Si ya contamos con un `setup.cfg` gestionando otras herramientas (linters, formatters, empaquetado), centralizar la configuración de pytest bajo `[tool:pytest]` mantiene todo organizado.
+* **`addopts`:** Definimos aquí las opciones que siempre queremos activas (`-v`, `--tb=short`, `--cov=.`, `--cov-report=term-missing`, etc.). Esto evita repeticiones tediosas en la terminal.
+* **Secciones de plugins:** No dudar en configurar plugins directamente en estos archivos (`[coverage:run]`, `[flake8]`, etc.). Simplifica la invocación de herramientas.
+* **Consistencia en el equipo:** Asegura que todo el equipo utilice la misma configuración (commit estos archivos al repositorio). Evita sorpresas y "en mi máquina funciona".
+
+
+**setup.cfg**
+
+
+La configuración de setup.cfg está configurada de la siguiente manera:
+
+```
+[tool:pytest]
+addopts = -v --tb=short --cov=. --cov-report=term-missing
+
+[coverage:run]
+branch = True
+
+[coverage:report]
+show_missing = True
+```
+
+Este archivo te permitirá automatizar la configuración de las pruebas.
+
+[tool:pytest]es una sección específica para configurar pytest.
+- addopts: Opciones adicionales para pytest (en este caso, activa la salida detallada -v, el tipo de rastro corto para errores --tb=short, y la cobertura con informe de líneas faltantes --cov-report=term-missing).
+- [coverage:run] y [coverage:report]: Configuración para la herramienta de cobertura, en este caso, para medir la cobertura de ramas (branch=True) y mostrar qué líneas faltan (show_missing=True).
+
+**pytest.ini**
+
+Es un archivo de configuración específico para pytest. Solo contiene configuraciones que pytest usa directamente.
+
+Si quieres configurar solo pytest sin agregar configuraciones de otras herramientas o mantener la configuración más organizada para esta herramienta en particular, pytest.ini es una opción preferida.
+
+Sigue una estructura más simple y directa que se parece a lo siguiente:
+
+```
+[pytest]
+addopts = -v --tb=short --cov=. --cov-report=term-missing
+
+[coverage:run]
+branch = True
+
+[coverage:report]
+show_missing = True
+```
+
 
