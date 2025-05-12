@@ -79,6 +79,7 @@ Si también deseas generar un informe de cobertura en HTML para visualizarlo.
 
 > `pytest` ejecuta las pruebas, mide la cobertura del código en el proyecto y genera un informe HTML completo.
 
+![](img/act10-paso2-3-html.png)
 
 *Ejecutamos el siguiente comando.*
 
@@ -89,7 +90,6 @@ pytest -v --cov=triangle`
 Si solo deseas medir la cobertura de un módulo  o directorio específico, en nuestro caso `triangle.py`.
 
 ![](img/act10-paso2-4.png)
-
 
 * `pytest` comienza la ejecución en modo detallado (`-v`) y con la intención de medir la cobertura del módulo `triangle`.
 * Se encontraron 11 pruebas en `test_triangle.py`.
@@ -111,7 +111,6 @@ pytest --cov=triangle --cov-report=term-missing`
 Si deseas un informe más detallado que muestre las líneas que no están cubiertas,
 
 ![](img/act10-paso2-5.png)
-
 
 * Pytest comienza la ejecución con la intención de medir la cobertura del módulo `triangle` y mostrar las líneas no cubiertas en la terminal.
 * Se encuentran 11 pruebas en `test_triangle.py`.
