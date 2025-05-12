@@ -204,4 +204,13 @@ branch = True
 show_missing = True
 ```
 
+**Paso 6: Ejecutando pruebas con la configuración automatizada**
+Una vez que hayas creado el archivo o setup.cfg pytest.ini, simplemente ejecuta pytest sin ningún parámetro adicional:
 
+```
+pytest
+```
+
+Esto ejecutará las pruebas con los parámetros definidos en el archivo de configuración, ahorrándote la necesidad de escribirlos cada vez.
+
+![](img/act10-paso6.png)
